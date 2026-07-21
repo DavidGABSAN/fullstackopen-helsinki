@@ -1,69 +1,50 @@
-const Header = (props) => {
-  return <h1>{props.course.name}</h1>;
-};
+import { useState } from "react";
 
-const Part = (props) => {
-  return (
-    <p>
-      {props.name} {props.exercises}
-    </p>
-  );
-};
-
-const Content = (props) => {
-  return (
-    <div>
-      <Part
-        name={props.course.parts[0].name}
-        exercises={props.course.parts[0].exercises}
-      />
-      <Part
-        name={props.course.parts[1].name}
-        exercises={props.course.parts[1].exercises}
-      />
-      <Part
-        name={props.course.parts[2].name}
-        exercises={props.course.parts[2].exercises}
-      />
-    </div>
-  );
-};
-
-const Total = (props) => {
-  return (
-    <p>
-      Number of exercises{" "}
-      {props.course.parts[0].exercises +
-        props.course.parts[1].exercises +
-        props.course.parts[2].exercises}
-    </p>
-  );
-};
+const Button = (props) => (
+  <button onClick={props.handleClick}>{props.text}</button>
+);
+const Title = (props) => <h1>{props.text}</h1>;
+const SubTitle = (props) => <h2>{props.text}</h2>;
+const Display = (props) => (
+  <p>
+    {props.text} {props.value}
+  </p>
+);
 
 const App = () => {
-  const course = {
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-      },
-    ],
+  // guarda los clics de cada botón en su propio estado
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const incrementGood = () => {
+    console.log("Value before", good);
+    setGood(good + 1);
+    console.log("Value after", good);
+  };
+
+  const incrementNeutral = () => {
+    console.log("Value before", neutral);
+    setNeutral(neutral + 1);
+    console.log("Value after", neutral);
+  };
+
+  const incrementBad = () => {
+    console.log("Value Before", bad);
+    setBad(bad + 1);
+    console.log("Value after", bad);
   };
 
   return (
     <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course} />
+      <Title text="Give Feedback" />
+      <Button handleClick={incrementGood} text="Good" />
+      <Button handleClick={incrementNeutral} text="Neutral" />
+      <Button handleClick={incrementBad} text="Bad" />
+      <SubTitle text="Statistics" />
+      <Display text="Good" value={good} />
+      <Display text="Neutral" value={neutral} />
+      <Display text="Bad" value={bad} />
     </div>
   );
 };
