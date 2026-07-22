@@ -7,7 +7,7 @@ const Title = (props) => <h1>{props.text}</h1>;
 const SubTitle = (props) => <h2>{props.text}</h2>;
 const Display = (props) => (
   <p>
-    {props.text} {props.value}
+    {props.text} {props.value} {props.units}
   </p>
 );
 
@@ -17,23 +17,17 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const incrementGood = () => {
-    console.log("Value before", good);
-    setGood(good + 1);
-    console.log("Value after", good);
-  };
+  const all = good + neutral + bad;
 
-  const incrementNeutral = () => {
-    console.log("Value before", neutral);
-    setNeutral(neutral + 1);
-    console.log("Value after", neutral);
-  };
+  const average = all === 0 ? 0 : (good - bad) / all; // si all igual a 0 pon un cero, no pongas NaN. Si no, haz el cálculo
 
-  const incrementBad = () => {
-    console.log("Value Before", bad);
-    setBad(bad + 1);
-    console.log("Value after", bad);
-  };
+  const positive = all === 0 ? 0 : (good / all) * 100;
+
+  const incrementGood = () => setGood(good + 1);
+
+  const incrementNeutral = () => setNeutral(neutral + 1);
+
+  const incrementBad = () => setBad(bad + 1);
 
   return (
     <div>
@@ -42,9 +36,12 @@ const App = () => {
       <Button handleClick={incrementNeutral} text="Neutral" />
       <Button handleClick={incrementBad} text="Bad" />
       <SubTitle text="Statistics" />
-      <Display text="Good" value={good} />
-      <Display text="Neutral" value={neutral} />
-      <Display text="Bad" value={bad} />
+      <Display text="Good" value={good} units="votes" />
+      <Display text="Neutral" value={neutral} units="votes" />
+      <Display text="Bad" value={bad} units="votes" />
+      <Display text="All" value={all} units="votes" />
+      <Display text="Average" value={average} />
+      <Display text="Positive" value={positive} units="%" />
     </div>
   );
 };
