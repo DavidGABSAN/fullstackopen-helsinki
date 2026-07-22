@@ -11,6 +11,19 @@ const Display = (props) => (
   </p>
 );
 
+const Statistics = (props) => {
+  return (
+    <>
+      <Display text="Good" value={props.good} units="votes" />
+      <Display text="Neutral" value={props.neutral} units="votes" />
+      <Display text="Bad" value={props.bad} units="votes" />
+      <Display text="All" value={props.all} units="votes" />
+      <Display text="Average" value={props.average} />
+      <Display text="Positive" value={props.positive} units="%" />
+    </>
+  );
+};
+
 const App = () => {
   // guarda los clics de cada botón en su propio estado
   const [good, setGood] = useState(0);
@@ -36,12 +49,14 @@ const App = () => {
       <Button handleClick={incrementNeutral} text="Neutral" />
       <Button handleClick={incrementBad} text="Bad" />
       <SubTitle text="Statistics" />
-      <Display text="Good" value={good} units="votes" />
-      <Display text="Neutral" value={neutral} units="votes" />
-      <Display text="Bad" value={bad} units="votes" />
-      <Display text="All" value={all} units="votes" />
-      <Display text="Average" value={average} />
-      <Display text="Positive" value={positive} units="%" />
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        all={all}
+        average={average}
+        positive={positive}
+      />
     </div>
   );
 };
