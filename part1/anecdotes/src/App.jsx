@@ -4,7 +4,15 @@ const Button = (props) => (
   <button onClick={props.handleClick}>{props.text}</button>
 );
 
-const Display = (props) => <p>Votes: {props.displayControl}</p>;
+const Title = (props) => <h1>{props.text}</h1>;
+const SubTitle = (props) => <h2>{props.text}</h2>;
+
+const Display = (props) => (
+  <p>
+    {props.text}
+    {props.displayControl}
+  </p>
+);
 
 const App = () => {
   const anecdotes = [
@@ -32,12 +40,36 @@ const App = () => {
     setVotes(copy);
   };
 
+  const mostVoted = () => {
+    let maxVotes = 0;
+    let maxIndex = 0;
+
+    for (let i = 0; i < votes.length; i++) {
+      if (votes[i] > maxVotes) {
+        maxVotes = votes[i];
+        maxIndex = i;
+      }
+    }
+    if (maxVotes === 0) {
+      return <p>No votes cast yet</p>;
+    }
+    return (
+      <div>
+        <p>{anecdotes[maxIndex]}</p>
+        <p>has {maxVotes} votes</p>
+      </div>
+    );
+  };
+
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
+      <Title text="Anecdote of the day" />
+      <Display displayControl={anecdotes[selected]} />
       <Button handleClick={changeAnecdote} text="Next Anecdote" />
       <Button handleClick={vote} text="Vote" />
-      <Display displayControl={votes[selected]} />
+      <Display text="Votes: " displayControl={votes[selected]} />
+      <SubTitle text="Anecdote with most votes" />
+      {mostVoted()}
     </div>
   );
 };
