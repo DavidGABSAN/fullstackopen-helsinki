@@ -5,7 +5,7 @@ const Button = (props) => (
 );
 const Title = (props) => <h1>{props.text}</h1>;
 const SubTitle = (props) => <h2>{props.text}</h2>;
-const Display = (props) => (
+const StatisticLine = (props) => (
   <p>
     {props.text} {props.value} {props.units}
   </p>
@@ -17,12 +17,12 @@ const Statistics = (props) => {
   }
   return (
     <>
-      <Display text="Good" value={props.good} units="votes" />
-      <Display text="Neutral" value={props.neutral} units="votes" />
-      <Display text="Bad" value={props.bad} units="votes" />
-      <Display text="All" value={props.all} units="votes" />
-      <Display text="Average" value={props.average} />
-      <Display text="Positive" value={props.positive} units="%" />
+      <StatisticLine text="Good" value={props.good} units="votes" />
+      <StatisticLine text="Neutral" value={props.neutral} units="votes" />
+      <StatisticLine text="Bad" value={props.bad} units="votes" />
+      <StatisticLine text="All" value={props.all} units="votes" />
+      <StatisticLine text="Average" value={props.average} />
+      <StatisticLine text="Positive" value={props.positive} units="%" />
     </>
   );
 };
