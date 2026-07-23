@@ -6,9 +6,11 @@ const Button = (props) => (
 const Title = (props) => <h1>{props.text}</h1>;
 const SubTitle = (props) => <h2>{props.text}</h2>;
 const StatisticLine = (props) => (
-  <p>
-    {props.text} {props.value} {props.units}
-  </p>
+  <tr>
+    <td>{props.text}</td>
+    <td>{props.value}</td>
+    <td>{props.units}</td>
+  </tr>
 );
 
 const Statistics = (props) => {
@@ -16,14 +18,21 @@ const Statistics = (props) => {
     return <p>No feedback given</p>;
   }
   return (
-    <>
-      <StatisticLine text="Good" value={props.good} units="votes" />
-      <StatisticLine text="Neutral" value={props.neutral} units="votes" />
-      <StatisticLine text="Bad" value={props.bad} units="votes" />
-      <StatisticLine text="All" value={props.all} units="votes" />
-      <StatisticLine text="Average" value={props.average} />
-      <StatisticLine text="Positive" value={props.positive} units="%" />
-    </>
+    <table>
+      <tbody>
+        <StatisticLine text="Good" value={props.good} units="votes" />
+
+        <StatisticLine text="Neutral" value={props.neutral} units="votes" />
+
+        <StatisticLine text="Bad" value={props.bad} units="votes" />
+
+        <StatisticLine text="All" value={props.all} units="votes" />
+
+        <StatisticLine text="Average" value={props.average} />
+
+        <StatisticLine text="Positive" value={props.positive} units="%" />
+      </tbody>
+    </table>
   );
 };
 
