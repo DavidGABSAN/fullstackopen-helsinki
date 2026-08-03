@@ -10,14 +10,23 @@ const App = () => {
 
   const addContact = (event) => {
     event.preventDefault();
-    console.log("Nombre que se va a añadir:", newName);
+    console.log("Add name:", newName);
+
+    if (
+      persons.some(
+        (person) => person.name.toLowerCase() === newName.toLowerCase(),
+      )
+    ) {
+      alert(`${newName} already added to phonebook`);
+      return;
+    }
 
     const contactObject = {
       name: newName,
       id: String(persons.length + 1),
     };
 
-    console.log("Nuevo objeto de contacto:", contactObject);
+    console.log("New contact object:", contactObject);
 
     setPersons(persons.concat(contactObject));
     setNewName("");
