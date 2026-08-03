@@ -1,28 +1,51 @@
 import { useState } from "react";
 
 const Contact = ({ person }) => {
-  return <li>{person.name}</li>;
+  return (
+    <li>
+      {person.name} {person.number}
+    </li>
+  );
 };
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas", id: "1" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", id: "1", number: "627982827" },
+  ]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
 
   const addContact = (event) => {
     event.preventDefault();
     console.log("Add name:", newName);
+
+    if (newName.length === 0) {
+      alert("You must add a name.");
+      return;
+    }
 
     if (
       persons.some(
         (person) => person.name.toLowerCase() === newName.toLowerCase(),
       )
     ) {
-      alert(`${newName} already added to phonebook`);
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
+
+    if (persons.some((person) => person.number === newNumber)) {
+      alert(`${newNumber} is already added to phonebook`);
+      return;
+    }
+
+    if (newNumber.length !== 9) {
+      alert("The phone number must be 9 digits long.");
       return;
     }
 
     const contactObject = {
       name: newName,
+      number: newNumber,
       id: String(persons.length + 1),
     };
 
@@ -30,10 +53,15 @@ const App = () => {
 
     setPersons(persons.concat(contactObject));
     setNewName("");
+    setNewNumber("");
   };
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
+  };
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value);
   };
 
   return (
@@ -42,6 +70,7 @@ const App = () => {
       <form onSubmit={addContact}>
         <div>
           name: <input value={newName} onChange={handleNameChange} />
+          number: <input value={newNumber} onChange={handleNumberChange} />
         </div>
         <div>
           <button type="submit">add</button>
